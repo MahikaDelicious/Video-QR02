@@ -39,15 +39,38 @@
             background: rgba(0, 0, 0, 0); /* Transparent overlay */
             z-index: 2; /* Ensure overlay is above the video */
         }
+        .controls {
+            position: absolute;
+            bottom: 20px; /* Position from the bottom */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3; /* Ensure controls are above the overlay */
+            display: flex;
+            gap: 10px;
+        }
+        .control-button {
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: none;
+            color: black;
+            cursor: pointer;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="video-container">
-        <video controls autoplay muted>
+        <video id="video" autoplay muted>
             <source src="Tribute to anne.mp4" type="video/mp4"> <!-- Update this path -->
             Your browser does not support the video tag.
         </video>
         <div class="overlay" onclick="removeOverlay()"></div>
+        <div class="controls">
+            <button class="control-button" onclick="togglePlay()">Play/Pause</button>
+            <!--<button class="control-button" onclick="changeVolume(-0.1)">Volume -</button> -->
+            <!--<button class="control-button" onclick="changeVolume(0.1)">Volume +</button> -->
+            <button class="control-button" onclick="toggleMute()">Mute/Unmute</button>
+        </div>
     </div>
 
     <script>
@@ -68,6 +91,27 @@
         // Function to remove the overlay
         function removeOverlay() {
             document.querySelector('.overlay').style.display = 'none';
+        }
+
+        const video = document.getElementById('video');
+
+        // Toggle play/pause
+        function togglePlay() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+
+        // Change volume
+        function changeVolume(amount) {
+            video.volume = Math.min(1, Math.max(0, video.volume + amount)); // Keep volume between 0 and 1
+        }
+
+        // Toggle mute/unmute
+        function toggleMute() {
+            video.muted = !video.muted;
         }
     </script>
 </body>
