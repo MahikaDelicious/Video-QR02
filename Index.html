@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Landing Page</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full height */
+            background-color: black;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .video-container {
+            position: relative;
+            width: 100%; /* Full width */
+            height: 100vh; /* Full height */
+            overflow: hidden; /* Prevent overflow */
+        }
+        video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100vw; /* Full viewport width */
+            height: 100vh; /* Full viewport height */
+            transform: translate(-50%, -50%); /* Center the video */
+            border: none;
+            z-index: 1; /* Ensure video is above the overlay */
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0); /* Transparent overlay */
+            z-index: 2; /* Ensure overlay is above the video */
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video controls autoplay muted>
+            <source src="Tribute to anne.mp4" type="video/mp4"> <!-- Update this path -->
+            Your browser does not support the video tag.
+        </video>
+        <div class="overlay" onclick="removeOverlay()"></div>
+    </div>
+
+    <script>
+        // Disable right-click
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Disable F12 and other shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+                (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault();
+            }
+        });
+
+        // Function to remove the overlay
+        function removeOverlay() {
+            document.querySelector('.overlay').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
